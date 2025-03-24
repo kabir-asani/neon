@@ -1,0 +1,17 @@
+{
+  "name": "neon",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "start": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.9",
+    "@types/node": "^20.11.17",
+    "tsx": "^4.7.1"
+  }
+}
