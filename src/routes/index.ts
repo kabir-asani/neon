@@ -57,6 +57,8 @@ hono.post("/authentication/log-in", async (context) => {
       201
     );
   } catch (e) {
+    console.log("Error", e);
+
     if (e === LogInWtihUsernameAndPasswordError.INCORRECT_USERNAME_OR_PASSWORD) {
       return context.json(
         {
