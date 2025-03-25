@@ -5,43 +5,10 @@ import {
   SignUpWithUsernameAndPasswordError,
   type LogInWithUsernameAndPasswordResult,
   type SignUpWithUsernameAndPasswordResult,
-} from "./+types";
+} from "./authentication-types";
 import { prismaClient } from "../../extras/prisma";
 import jwt from "jsonwebtoken";
 import { jwtSecretKey } from "../../../environment";
-
-const createJWToken = (parameters: { id: string; username: string }): string => {
-  // Generate token
-  const jwtPayload: jwt.JwtPayload = {
-    iss: "https://purpleshorts.co.in",
-    sub: parameters.id,
-    username: parameters.username,
-  };
-
-  const token = jwt.sign(jwtPayload, jwtSecretKey, {
-    expiresIn: "30d",
-  });
-
-  return token;
-};
-
-export const checkIfUserExistsAlready = async (parameters: { username: string }): Promise<boolean> => {
-  const existingUser = await prismaClient.user.findUnique({
-    where: {
-      username: parameters.username,
-    },
-  });
-
-  if (existingUser) {
-    return true;
-  }
-
-  return false;
-};
-
-export const createPasswordHash = (parameters: { password: string }): string => {
-  return createHash("sha256").update(parameters.password).digest("hex");
-};
 
 export const signUpWithUsernameAndPassword = async (parameters: {
   username: string;
@@ -111,4 +78,37 @@ export const logInWithUsernameAndPassword = async (parameters: {
     token,
     user,
   };
+};
+
+const createJWToken = (parameters: { id: string; username: string }): string => {
+  // Generate token
+  const jwtPayload: jwt.JwtPayload = {
+    iss: "https://purpleshorts.co.in",
+    sub: parameters.id,
+    username: parameters.username,
+  };
+
+  const token = jwt.sign(jwtPayload, jwtSecretKey, {
+    expiresIn: "30d",
+  });
+
+  return token;
+};
+
+const checkIfUserExistsAlready = async (parameters: { username: string }): Promise<boolean> => {
+  const existingUser = await prismaClient.user.findUnique({
+    where: {
+      username: parameters.username,
+    },
+  });
+
+  if (existingUser) {
+    return true;
+  }
+
+  return false;
+};
+
+const createPasswordHash = (parameters: { password: string }): string => {
+  return createHash("sha256").update(parameters.password).digest("hex");
 };

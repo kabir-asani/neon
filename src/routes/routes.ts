@@ -1,9 +1,12 @@
 import { Hono } from "hono";
-import { logInWithUsernameAndPassword, signUpWithUsernameAndPassword } from "../controllers/authentication";
+import {
+  logInWithUsernameAndPassword,
+  signUpWithUsernameAndPassword,
+} from "../controllers/authentication/authentication-controller";
 import {
   LogInWtihUsernameAndPasswordError,
   SignUpWithUsernameAndPasswordError,
-} from "../controllers/authentication/+types";
+} from "../controllers/authentication/authentication-types";
 
 export const hono = new Hono();
 
