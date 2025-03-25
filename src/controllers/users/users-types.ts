@@ -7,3 +7,7 @@ export type GetMeResult = {
 export enum GetMeError {
   BAD_REQUEST,
 }
+
+export type GetAllUsersResult = {
+  users: User[];
+};

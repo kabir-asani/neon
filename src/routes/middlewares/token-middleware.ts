@@ -28,7 +28,7 @@ export const tokenMiddleware = createMiddleware<{
     } else {
       return context.json(
         {
-          message: "Invalid Token",
+          message: "Unauthorised",
         },
         401
       );
@@ -38,7 +38,7 @@ export const tokenMiddleware = createMiddleware<{
   } catch (e) {
     return context.json(
       {
-        message: "Missing Token",
+        message: "Unauthorised",
       },
       401
     );

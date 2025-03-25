@@ -1,5 +1,5 @@
 import { prismaClient } from "../../extras/prisma";
-import { GetMeError, type GetMeResult } from "./users-types";
+import { GetMeError, type GetAllUsersResult, type GetMeResult } from "./users-types";
 
 export const getMe = async (parameters: { userId: string }): Promise<GetMeResult> => {
   const user = await prismaClient.user.findUnique({
@@ -14,5 +14,13 @@ export const getMe = async (parameters: { userId: string }): Promise<GetMeResult
 
   return {
     user,
+  };
+};
+
+export const getAllUsers = async (): Promise<GetAllUsersResult> => {
+  const users = await prismaClient.user.findMany();
+
+  return {
+    users,
   };
 };
